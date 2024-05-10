@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            position: relative;
+            width: 100vw;
+            background-image: url(musicSur.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            
+        }
+        .btn{
+            height: 100px;
+            width: 300px;
+            background-color: #de3030;
+            color: white;
+            border-radius: 25px;
+            font-size: 50px;
+        
+        }
+        .common{
+            height: 100vh;
+            width: 100vw;
+            background-image: url(musicSur.jpg);
+            position: relative;
+            
+        }
+        input{
+            height: 100vh;
+            width: 100vw;
+            border: none;
+            text-decoration: none;
+            background-color: transparent;
+            position: absolute;
+            z-index: 1;
+        }
+      
+    </style>
+</head>
+<body>
+    <div id="main" class="common">
+        <div id="sec" class="common">
+        <input readonly type="text"  >
+    </div>
+    </div>
+   
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+    function gsaphai()  { var tl = gsap.timeline()
+tl.from("#main",{
+    
+    duration:1,
+    rotationZ:"180_ccw",
+    scale:0,
+    // opacity:0,
+   
+})}
+function seco(){var tl = gsap.timeline()
+tl.from("#main",{
+    x:-500,
+    duration:1,
+  
+    // opacity:0,
+   
+})}
+function thi(){var tl = gsap.timeline()
+tl.from("#main",{
+    y:-500,
+    duration:1,
+  
+    // opacity:0,
+   
+})}
+function fo(){var tl = gsap.timeline()
+tl.from("#main",{
+    y:500,
+    duration:1,
+  
+    // opacity:0,
+   
+})}
+        let btn=document.querySelector('input')
+        btn.addEventListener('keydown',function(event){
+        if(event.key=='s'||event.key=='S'){
+                pl=new Audio("sounds_clay.mp3")
+                 pl.play()
+                 seco()
+        }
+       else if(event.key=='a'||event.key=='A'){
+                pl=new Audio("sounds_moon.mp3")
+                 pl.play()
+                 gsaphai()
+        }
+        else if(event.key=='d'||event.key=='D'){
+                pl=new Audio("sounds_pinwheel.mp3")
+                 pl.play()
+                 thi()
+        }
+        else if(event.key=='j'||event.key=='J'){
+                pl=new Audio("sounds_veil.mp3")
+                 pl.play()
+                 fo()
+        }
+        else if(event.key=='l'||event.key=='L'){
+                pl=new Audio("sounds_zig-zag.mp3")
+                 pl.play()
+                 thi()
+        }
+        else if(event.key=='k'||event.key=='K'){
+                pl=new Audio("sounds_strike.mp3")
+                 pl.play()
+                 seco()
+        }
+        else if(event.key=='h'||event.key=='H'){
+                pl=new Audio("confetti.mp3")
+                 pl.play()
+                 gsaphai()
+        }
+        else if(event.key=='f'||event.key=='F'){
+                pl=new Audio("sounds_dotted-spiral.mp3")
+                 pl.play()
+                 thi()
+        }
+        })
+    </script>
+    
+</body>
+</html>
