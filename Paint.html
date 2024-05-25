@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paintApplication</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .con{
+            height: 100vh;
+            width: 100vw;
+            background-color: rgb(25, 132, 194);
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        .draw{
+            height: 80vh;
+            width: 60vw;
+            background-color: white;
+            margin-top: 10vh;
+            margin-left: 3vw;
+            
+        }
+        .tools{
+            height: 96vh;
+            width: 30vw;
+            background-color: white;
+            margin-top: 3vh;
+            margin-right: 0.5vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .box{
+            height: 30vh;
+            width: 25vw ;
+            background-color: gray;
+        }
+        .btn{
+            height: 7vh;
+            width: 15vw;
+            font-size: 1.8vw;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 2vw;
+            border-radius: 3vw;
+            box-shadow: 2px 2px 2px 2px black;
+            border: none;
+        }
+       #midtools{
+        display: flex;
+        justify-content: space-around;
+align-items: center;        
+       }
+        i{
+            height: 8vw;
+            font-size: 4vw;
+        }
+
+        #erasor{
+
+        }
+        #clr{
+            
+            /* display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(12vw,1fr));   */
+            /* grid-template-columns: repeat(3,2fr); */
+
+        }
+        .colors{
+            display: inline-block;
+            height: 3vh;
+            width: 5vw;
+            background-color: aqua;
+            margin: 0.8vw;
+        }
+        #r{background-color: red;}
+        #g{background-color: green;}
+        #b{background-color:blue ;}
+        #pi{background-color: pink;}
+        #bl{background-color: black;}
+        #y{background-color: yellow;}
+        #sk{background-color: skyblue;}
+        #p{background-color: purple;}
+        #v{background-color: violet;}
+        .rec{
+            height: 2vh;
+            width: 4vw;
+            border: 12px solid black;
+        }
+        .line{
+            height: 10vh;
+            border: 6px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="con">
+     <canvas class="draw"></canvas>
+    <div class="tools">
+        <div id="upertools" class="box">
+            <button class="btn" id="clear">Clear</button>
+            <button class="btn">BackOneStep</button>
+        </div>
+        <div id="midtools" class="box">
+            <div id="pen"><i class="fa-solid fa-pencil" id="penh"></i></div>
+            <div id="erasor"><i class="fa-solid fa-eraser" id="erasor"></i>
+            </div>
+            <div class="br"><i class="fa-solid fa-paintbrush" id="brush"></i></div>
+            <div class="ci"><i class="fa-regular fa-circle"></i></div>
+            <div class="rec"></div>
+            <div class="line"></div>
+        </div>
+        <div id="clr" class="box">
+    <span class="colors" id="r" ></span>
+    <span class="colors" id="g"></span>
+    <span class="colors" id="b"></span>
+    <span class="colors" id="pi"></span>
+    <span class="colors" id="bl"></span>
+    <span class="colors" id="y"></span>
+    <span class="colors" id="sk"></span>
+    <span class="colors" id="p"></span>
+    <span class="colors" id="v"></span>
+    <!-- <input type="color" name="" id="" class="colors" >
+    <input type="range" max="24" min="1">     -->
+        </div>
+    </div>
+    </div>
+    <script>
+        let body=document.querySelector('div')
+        // let cursor=document.querySelector('.c')
+      let brush=document.querySelector('#brush')
+      let erasor=document.querySelector('#erasor')
+      let clear=document.querySelector('#clear')
+      console.log(clear);
+        let cursor=document.querySelector('#pen')
+        let con=document.querySelector('.con')
+    let canvas=document.querySelector('.draw')
+    let pen=document.querySelector('#penh')
+    let ctx=canvas.getContext("2d")
+    let width=23
+    const drawoffsetx=canvas.offsetLeft;
+    const drawoffsety=canvas.offsetTop;
+    canvas.width=window.innerWidth-drawoffsetx;
+    canvas.height=window.innerHeight-drawoffsety;
+    let ispainting=false;
+    window.addEventListener('load',function(){
+        canvas.width=canvas.offsetWidth;
+        canvas.height=canvas.offsetHeight;
+    })
+    const startdrawing=()=>{
+        ispainting=true
+        ctx.beginPath();
+    }
+    const drawing=(e)=>{
+        if(!ispainting)return;
+        ctx.lineTo(e.offsetX,e.offsetY);
+        // ctx.lineCap='round'
+        // ctx.linejoin='round'
+        ctx.lineWidth=4;
+        ctx.stroke();
+    }
+        let col=document.querySelectorAll('.colors')
+          col.forEach(element => {
+            let one=document.getElementById(element.id)
+           one.addEventListener('click',function(){
+        switch(one.id){
+            case 'r': ctx.strokeStyle='red'
+                      break;
+            case 'g': ctx.strokeStyle='green'
+                      break;
+            case 'b': ctx.strokeStyle='blue'
+                      break;
+            case 'pi': ctx.strokeStyle='pink'
+            break;
+  case 'p': ctx.strokeStyle='purple'
+            break;
+  case 'v': ctx.strokeStyle='violet'
+            break;
+  case 'bl': ctx.strokeStyle='black'
+            break;
+  case 'y': ctx.strokeStyle='yellow'
+            break;
+  case 'sk': ctx.strokeStyle='skyblue'
+            break;
+}
+})
+});
+    pen.addEventListener('click',function(){
+        canvas.addEventListener('mousedown',startdrawing)
+   canvas.addEventListener('mousemove',drawing)
+   canvas.addEventListener('mouseup',()=>ispainting=false)
+   canvas.addEventListener('mouseout',function(){
+    if(ispainting) {
+        // ctx.stroke()
+        ctx.closePath()
+        ispainting=false
+    }
+   })
+    })
+    erasor.addEventListener('click',function(e){
+        ctx.strokeStyle='white';
+    })
+    clear.addEventListener('click',function(){
+    ctx.fillStyle='white';
+    ctx.fillRect(0,0,canvas.width,canvas.height)
+    })
+    let rect=document.querySelector('.rec')
+   
+    </script>
+</body>
+</html>
